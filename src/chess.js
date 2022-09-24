@@ -15,7 +15,11 @@ J=q-1|A<7||m||!s|d|r|o<z||X(0,0,0,21,0,0)>M;I[O]=o;I[p]=r;m?(I[m]=I[g],I[g]=0):
 g?I[g]=9^y:0;}if(L>N||s>1&&L==N&&!h&&Math.random()<.5){I[G]=O;if(s>1){if(h&&c-L
 <0)return y^=8,G--,L;if(!h)i=n,B=O,b=p;}N=L;}n+=J||(g=p,m=p<O?g-3:g+2,I[m]<z|I[
 m+O-p]||I[p+=p-O])?1:0;}}}}while(!r&q>2||(p=O,q|A>2|o>z&!r&&++C*--A));}}}while(
-++O>98?O=20:e-O);return y^=8,G--,N+M*M&&N>-K+1924|d?N:0;}B=i=y=u=0;while(B++<
+++O>98?O=20:e-O);return y^=8,G--,N+M*M&&N>-K+1924|d?N:0;}
+function W(){B=b;for(p=21;p<99;++p)if(q=document.getElementById("o"+p)){q.
+    innerHTML="\xa0\u265f\u265a\u265e\u265d\u265c\u265b  \u2659\u2654\u2658\u2657\u2656\u2655".charAt(I[p]&z);
+    q.style.borderColor=p==B?"firebrick":"#dde";}}
+window.onload=()=>{B=i=y=u=0;while(B++<
 120)I[B-1]=B%x?B/x%x<2|B%x<2?7:B/x&4?0:l[i++]|16:7;for(a=
 "<table cellspacing=0 align=center style='border:5px solid #dde;border-radius:5px' bgcolor=#dde>"
 ,i=18;i<100;a+=++i%10-9?
@@ -23,10 +27,8 @@ m+O-p]||I[p+=p-O])?1:0;}}}}while(!r&q>2||(p=O,q|A>2|o>z&!r&&++C*--A));}}}while(
 " style='line-height:50px;font-size:50px;border:2px solid #dde' bgcolor=#"+
 (i*.9&1?"c0c0f0":"e6e6fa")+">":(i++,"<tr>"));
 a+="<th colspan=8><select id=t style='font-size:20px'><option>&#9819;<option>";
-document.write(a+"&#9820;<option>&#9821;<option>&#9822;</select></table>");
-function W(){B=b;for(p=21;p<99;++p)if(q=document.getElementById("o"+p)){q.
-innerHTML="\xa0\u265f\u265a\u265e\u265d\u265c\u265b  \u2659\u2654\u2658\u2657\u2656\u2655".charAt(I[p]&z);
-q.style.borderColor=p==B?"firebrick":"#dde";}}W();
+document.getElementById("board").innerHTML=a+"&#9820;<option>&#9821;<option>&#9822;</select></table>";
+W();}
 function Y(s){i=(I[s]^y)&z;if(i>8){b=s;W();}else if(B&&i<9){b=s;i=I[B]&z;if((i&
 7)==1&(b<29|b>90))i=14-document.getElementById("t").selectedIndex^y;X(0,0,0,21,
 u,1);if(y)setTimeout("X(0,0,0,21,u,2/*ply*/),X(0,0,0,21,u,1)",250);}}
