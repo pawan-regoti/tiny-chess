@@ -72,15 +72,7 @@ const X = (w, c, h, e, S, s) => {
     G--,
     N + M * M && N > -K + 1924 | d ? N : 0;
 }
-B = i = y = u = 0;
-while (B++ < 120)
-    I[B - 1] = B % x ? B / x % x < 2 | B % x < 2 ? 7 : B / x & 4 ? 0 : l[i++] | 16 : 7;
-for (a = "<table cellspacing=0 align=center style='border:5px solid #dde;border-radius:5px' bgcolor=#dde>",
-i = 18; i < 100; a += ++i % 10 - 9 ? "<th width=80 height=80 onclick=Y(" + i + ") id=o" + i + " style='line-height:50px;font-size:50px;border:2px solid #dde' bgcolor=#" + (i * .9 & 1 ? "c0c0f0" : "e6e6fa") + ">" : (i++,
-"<tr>"))
-    ;
-a += "<th colspan=8><select id=t style='font-size:20px'><option>&#9819;<option>";
-document.write(a + "&#9820;<option>&#9821;<option>&#9822;</select></table>");
+
 const W = () => {
     B = b;
     for (p = 21; p < 99; ++p)
@@ -89,8 +81,22 @@ const W = () => {
             q.style.borderColor = p == B ? "firebrick" : "#dde";
         }
 }
-W();
-const Y = (s) => {
+
+window.onload = () => {
+    B = i = y = u = 0;
+    while (B++ < 120)
+        I[B - 1] = B % x ? B / x % x < 2 | B % x < 2 ? 7 : B / x & 4 ? 0 : l[i++] | 16 : 7;
+    for (a = "<table cellspacing=0 align=center style='border:5px solid #dde;border-radius:5px' bgcolor=#dde>",
+    i = 18; i < 100; a += ++i % 10 - 9 ? "<th width=80 height=80 onclick=computerNextMove(" + i + ") id=o" + i + " style='line-height:50px;font-size:50px;border:2px solid #dde' bgcolor=#" + (i * .9 & 1 ? "c0c0f0" : "e6e6fa") + ">" : (i++,
+    "<tr>"))
+        ;
+    a += "<th colspan=8><select id=t style='font-size:20px'><option>&#9819;<option>";
+    document.getElementById("board").innerHTML = a + "&#9820;<option>&#9821;<option>&#9822;</select></table>";
+
+    W();
+}
+
+const computerNextMove = (s) => {
     i = (I[s] ^ y) & z;
     if (i > 8) {
         b = s;
