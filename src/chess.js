@@ -1,7 +1,7 @@
 //Thanks to Oscar Toledo G. (c)2010
-var B, i, y, u, b, I = [], G = 120, x = 10, z = 15, M = 1e4, l = [5, 3, 4, 6, 2, 4, 3, 5, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 9, 9, 9, 9, 9, 9, 13, 11, 12, 14, 10, 12, 11, 13, 0, 99, 0, 306, 297, 495, 846, -1, 0, 1, 2, 2, 1, 0, -1, -1, 1, -10, 10, -11, -9, 9, 11, 10, 20, -9, -11, -10, -20, -21, -19, -12, -8, 8, 12, 19, 21];
-function X(w, c, h, e, S, s) {
-    var t, o, L, E, d, O = e, N = -M * M, K = 78 - h << x, p, g, n, m, A, q, r, C, J, a = y ? -x : x;
+let B, i, y, u, b, I = [], G = 120, x = 10, z = 15, M = 1e4, l = [5, 3, 4, 6, 2, 4, 3, 5, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 9, 9, 9, 9, 9, 9, 13, 11, 12, 14, 10, 12, 11, 13, 0, 99, 0, 306, 297, 495, 846, -1, 0, 1, 2, 2, 1, 0, -1, -1, 1, -10, 10, -11, -9, 9, 11, 10, 20, -9, -11, -10, -20, -21, -19, -12, -8, 8, 12, 19, 21];
+const X = (w, c, h, e, S, s) => {
+    let t, o, L, E, d, O = e, N = -M * M, K = 78 - h << x, p, g, n, m, A, q, r, C, J, a = y ? -x : x;
     y ^= 8;
     G++;
     d = w || s && s >= h && X(0, 0, 0, 21, 0, 0) > M;
@@ -81,7 +81,7 @@ i = 18; i < 100; a += ++i % 10 - 9 ? "<th width=80 height=80 onclick=Y(" + i + "
     ;
 a += "<th colspan=8><select id=t style='font-size:20px'><option>&#9819;<option>";
 document.write(a + "&#9820;<option>&#9821;<option>&#9822;</select></table>");
-function W() {
+const W = () => {
     B = b;
     for (p = 21; p < 99; ++p)
         if (q = document.getElementById("o" + p)) {
@@ -90,7 +90,7 @@ function W() {
         }
 }
 W();
-function Y(s) {
+const Y = (s) => {
     i = (I[s] ^ y) & z;
     if (i > 8) {
         b = s;
