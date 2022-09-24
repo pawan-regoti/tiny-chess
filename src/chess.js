@@ -1,10 +1,10 @@
 //Thanks to Oscar Toledo G. (c)2010
 let selectedCellNumber, i, y, u, validPreviouslySelectedCellNumber, Board = [], G = 120, x = 10, z = 15, M = 1e4, l = [5, 3, 4, 6, 2, 4, 3, 5, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 9, 9, 9, 9, 9, 9, 13, 11, 12, 14, 10, 12, 11, 13, 0, 99, 0, 306, 297, 495, 846, -1, 0, 1, 2, 2, 1, 0, -1, -1, 1, -10, 10, -11, -9, 9, 11, 10, 20, -9, -11, -10, -20, -21, -19, -12, -8, 8, 12, 19, 21];
-const calculateNextMove = (w, c, h, e, S, ply) => {
+const computerNextMove = (w, c, h, e, S, ply) => {
     let t, o, L, E, d, O = e, N = -M * M, K = 78 - h << x, moveToCellNumber, g, n, m, A, q, r, C, J, a = y ? -x : x;
     y ^= 8;
     G++;
-    d = w || ply && ply >= h && calculateNextMove(0, 0, 0, 21, 0, 0) > M;
+    d = w || ply && ply >= h && computerNextMove(0, 0, 0, 21, 0, 0) > M;
     do {
         if (o = Board[moveToCellNumber = O]) {
             q = o & z ^ y;
@@ -32,12 +32,12 @@ const calculateNextMove = (w, c, h, e, S, ply) => {
                                     Board[moveToCellNumber] = n,
                                     Board[O] = m ? (Board[g] = Board[m],
                                     Board[m] = 0) : g ? Board[g] = 0 : 0;
-                                    L -= calculateNextMove(ply > h | d ? 0 : moveToCellNumber, L - N, h + 1, Board[G + 1], J = q | A > 1 ? 0 : moveToCellNumber, ply);
+                                    L -= computerNextMove(ply > h | d ? 0 : moveToCellNumber, L - N, h + 1, Board[G + 1], J = q | A > 1 ? 0 : moveToCellNumber, ply);
                                     if (!(h || ply - 1 | selectedCellNumber - O | i - n | moveToCellNumber - validPreviouslySelectedCellNumber | L < -M))
                                         return drawBoard(),
                                         G--,
                                         u = J;
-                                    J = q - 1 | A < 7 || m || !ply | d | r | o < z || calculateNextMove(0, 0, 0, 21, 0, 0) > M;
+                                    J = q - 1 | A < 7 || m || !ply | d | r | o < z || computerNextMove(0, 0, 0, 21, 0, 0) > M;
                                     Board[O] = o;
                                     Board[moveToCellNumber] = r;
                                     m ? (Board[m] = Board[g],
@@ -87,7 +87,7 @@ window.onload = () => {
     while (selectedCellNumber++ < 120)
         Board[selectedCellNumber - 1] = selectedCellNumber % x ? selectedCellNumber / x % x < 2 | selectedCellNumber % x < 2 ? 7 : selectedCellNumber / x & 4 ? 0 : l[i++] | 16 : 7;
     for (a = "<table cellspacing=0 align=center style='border:5px solid #dde;border-radius:5px' bgcolor=#dde>",
-    i = 18; i < 100; a += ++i % 10 - 9 ? "<th width=80 height=80 onclick=computerNextMove(" + i + ") id=position" + i + " style='line-height:50px;font-size:50px;border:2px solid #dde' bgcolor=#" + (i * .9 & 1 ? "c0c0f0" : "e6e6fa") + ">" : (i++,
+    i = 18; i < 100; a += ++i % 10 - 9 ? "<th width=80 height=80 onclick=playerNextMove(" + i + ") id=position" + i + " style='line-height:50px;font-size:50px;border:2px solid #dde' bgcolor=#" + (i * .9 & 1 ? "c0c0f0" : "e6e6fa") + ">" : (i++,
     "<tr>"))
         ;
     a += "<th colspan=8><select id=t style='font-size:20px'><option>&#9819;<option>";
@@ -96,7 +96,7 @@ window.onload = () => {
     drawBoard();
 }
 
-const computerNextMove = (cellNumber) => {
+const playerNextMove = (cellNumber) => {
     i = (Board[cellNumber] ^ y) & z; // is black piece or white piece
     if (i > 8) { // is white piece
         validPreviouslySelectedCellNumber = cellNumber; // move to postion or change piece selection
@@ -106,8 +106,8 @@ const computerNextMove = (cellNumber) => {
         i = Board[selectedCellNumber] & z;
         if ((i & 7) == 1 & (validPreviouslySelectedCellNumber < 29 | validPreviouslySelectedCellNumber > 90))
             i = 14 - document.getElementById("t").selectedIndex ^ y; // capture black piece by player
-        calculateNextMove(0, 0, 0, 21, u, 1);
+        computerNextMove(0, 0, 0, 21, u, 1);
         if (y)
-            setTimeout("calculateNextMove(0,0,0,21,u,2/*ply*/),calculateNextMove(0,0,0,21,u,1)", 250);
+            setTimeout("computerNextMove(0,0,0,21,u,2/*ply*/),computerNextMove(0,0,0,21,u,1)", 250);
     }
 }
