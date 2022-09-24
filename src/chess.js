@@ -1,45 +1,45 @@
 //Thanks to Oscar Toledo G. (c)2010
-let selectedCellNumber, i, y, u, userSelectedCellNumber, I = [], G = 120, x = 10, z = 15, M = 1e4, l = [5, 3, 4, 6, 2, 4, 3, 5, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 9, 9, 9, 9, 9, 9, 13, 11, 12, 14, 10, 12, 11, 13, 0, 99, 0, 306, 297, 495, 846, -1, 0, 1, 2, 2, 1, 0, -1, -1, 1, -10, 10, -11, -9, 9, 11, 10, 20, -9, -11, -10, -20, -21, -19, -12, -8, 8, 12, 19, 21];
+let selectedCellNumber, i, y, u, validPreviouslySelectedCellNumber, I = [], G = 120, x = 10, z = 15, M = 1e4, l = [5, 3, 4, 6, 2, 4, 3, 5, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 9, 9, 9, 9, 9, 9, 13, 11, 12, 14, 10, 12, 11, 13, 0, 99, 0, 306, 297, 495, 846, -1, 0, 1, 2, 2, 1, 0, -1, -1, 1, -10, 10, -11, -9, 9, 11, 10, 20, -9, -11, -10, -20, -21, -19, -12, -8, 8, 12, 19, 21];
 const calculateNextMove = (w, c, h, e, S, ply) => {
-    let t, o, L, E, d, O = e, N = -M * M, K = 78 - h << x, cellNumber, g, n, m, A, q, r, C, J, a = y ? -x : x;
+    let t, o, L, E, d, O = e, N = -M * M, K = 78 - h << x, moveToCellNumber, g, n, m, A, q, r, C, J, a = y ? -x : x;
     y ^= 8;
     G++;
     d = w || ply && ply >= h && calculateNextMove(0, 0, 0, 21, 0, 0) > M;
     do {
-        if (o = I[cellNumber = O]) {
+        if (o = I[moveToCellNumber = O]) {
             q = o & z ^ y;
             if (q < 7) {
                 A = q-- & 2 ? 8 : 4;
                 C = o - 9 & z ? [53, 47, 61, 51, 47, 47][q] : 57;
                 do {
-                    r = I[cellNumber += l[C]];
-                    if (!w | cellNumber == w) {
-                        g = q | cellNumber + a - S ? 0 : S;
+                    r = I[moveToCellNumber += l[C]];
+                    if (!w | moveToCellNumber == w) {
+                        g = q | moveToCellNumber + a - S ? 0 : S;
                         if (!r & (!!q | A < 3 || !!g) || (r + 1 & z ^ y) > 9 && q | A > 2) {
                             if (m = !(r - 2 & 7))
                                 return y ^= 8,
                                 I[G--] = O,
                                 K;
                             J = n = o & z;
-                            E = I[cellNumber - a] & z;
+                            E = I[moveToCellNumber - a] & z;
                             t = q | E - 7 ? n : (n += 2,
                             6 ^ y);
                             while (n <= t) {
                                 L = r ? l[r & 7 | 32] - h - q : 0;
                                 if (ply)
-                                    L += (1 - q ? l[(cellNumber - cellNumber % x) / x + 37] - l[(O - O % x) / x + 37] + l[cellNumber % x + 38] * (q ? 1 : 2) - l[O % x + 38] + (o & 16) / 2 : !!m * 9) + (!q ? !(I[cellNumber - 1] ^ n) + !(I[cellNumber + 1] ^ n) + l[n & 7 | 32] - 99 + !!g * 99 + (A < 2) : 0) + !(E ^ y ^ 9);
+                                    L += (1 - q ? l[(moveToCellNumber - moveToCellNumber % x) / x + 37] - l[(O - O % x) / x + 37] + l[moveToCellNumber % x + 38] * (q ? 1 : 2) - l[O % x + 38] + (o & 16) / 2 : !!m * 9) + (!q ? !(I[moveToCellNumber - 1] ^ n) + !(I[moveToCellNumber + 1] ^ n) + l[n & 7 | 32] - 99 + !!g * 99 + (A < 2) : 0) + !(E ^ y ^ 9);
                                 if (ply > h || 1 < ply & ply == h && L > z | d) {
-                                    I[cellNumber] = n,
+                                    I[moveToCellNumber] = n,
                                     I[O] = m ? (I[g] = I[m],
                                     I[m] = 0) : g ? I[g] = 0 : 0;
-                                    L -= calculateNextMove(ply > h | d ? 0 : cellNumber, L - N, h + 1, I[G + 1], J = q | A > 1 ? 0 : cellNumber, ply);
-                                    if (!(h || ply - 1 | selectedCellNumber - O | i - n | cellNumber - userSelectedCellNumber | L < -M))
+                                    L -= calculateNextMove(ply > h | d ? 0 : moveToCellNumber, L - N, h + 1, I[G + 1], J = q | A > 1 ? 0 : moveToCellNumber, ply);
+                                    if (!(h || ply - 1 | selectedCellNumber - O | i - n | moveToCellNumber - validPreviouslySelectedCellNumber | L < -M))
                                         return drawBoard(),
                                         G--,
                                         u = J;
                                     J = q - 1 | A < 7 || m || !ply | d | r | o < z || calculateNextMove(0, 0, 0, 21, 0, 0) > M;
                                     I[O] = o;
-                                    I[cellNumber] = r;
+                                    I[moveToCellNumber] = r;
                                     m ? (I[m] = I[g],
                                     I[g] = 0) : g ? I[g] = 9 ^ y : 0;
                                 }
@@ -53,17 +53,17 @@ const calculateNextMove = (w, c, h, e, S, ply) => {
                                         if (!h)
                                             i = n,
                                             selectedCellNumber = O,
-                                            userSelectedCellNumber = cellNumber;
+                                            validPreviouslySelectedCellNumber = moveToCellNumber;
                                     }
                                     N = L;
                                 }
-                                n += J || (g = cellNumber,
-                                m = cellNumber < O ? g - 3 : g + 2,
-                                I[m] < z | I[m + O - cellNumber] || I[cellNumber += cellNumber - O]) ? 1 : 0;
+                                n += J || (g = moveToCellNumber,
+                                m = moveToCellNumber < O ? g - 3 : g + 2,
+                                I[m] < z | I[m + O - moveToCellNumber] || I[moveToCellNumber += moveToCellNumber - O]) ? 1 : 0;
                             }
                         }
                     }
-                } while (!r & q > 2 || (cellNumber = O,
+                } while (!r & q > 2 || (moveToCellNumber = O,
                 q | A > 2 | o > z & !r && ++C * --A));
             }
         }
@@ -74,11 +74,11 @@ const calculateNextMove = (w, c, h, e, S, ply) => {
 }
 
 const drawBoard = () => {
-    selectedCellNumber = userSelectedCellNumber;
-    for (cellNumber = 21; cellNumber < 99; ++cellNumber)
-        if (q = document.getElementById("position" + cellNumber)) {
-            q.innerHTML = "\xa0\u265f\u265a\u265e\u265d\u265c\u265b  \u2659\u2654\u2658\u2657\u2656\u2655".charAt(I[cellNumber] & z);
-            q.style.borderColor = cellNumber == selectedCellNumber ? "firebrick" : "#dde";
+    selectedCellNumber = validPreviouslySelectedCellNumber;
+    for (moveToCellNumber = 21; moveToCellNumber < 99; ++moveToCellNumber)
+        if (q = document.getElementById("position" + moveToCellNumber)) {
+            q.innerHTML = "\xa0\u265f\u265a\u265e\u265d\u265c\u265b  \u2659\u2654\u2658\u2657\u2656\u2655".charAt(I[moveToCellNumber] & z);
+            q.style.borderColor = moveToCellNumber == selectedCellNumber ? "firebrick" : "#dde";
         }
 }
 
@@ -96,16 +96,16 @@ window.onload = () => {
     drawBoard();
 }
 
-const computerNextMove = (s) => {
-    i = (I[s] ^ y) & z;
-    if (i > 8) {
-        userSelectedCellNumber = s;
+const computerNextMove = (cellNumber) => {
+    i = (I[cellNumber] ^ y) & z; // is black piece or white piece
+    if (i > 8) { // is white piece
+        validPreviouslySelectedCellNumber = cellNumber; // move to postion or change piece selection
         drawBoard();
-    } else if (selectedCellNumber && i < 9) {
-        userSelectedCellNumber = s;
+    } else if (selectedCellNumber /* during first move this is null */ && i < 9) {
+        validPreviouslySelectedCellNumber = cellNumber;
         i = I[selectedCellNumber] & z;
-        if ((i & 7) == 1 & (userSelectedCellNumber < 29 | userSelectedCellNumber > 90))
-            i = 14 - document.getElementById("t").selectedIndex ^ y;
+        if ((i & 7) == 1 & (validPreviouslySelectedCellNumber < 29 | validPreviouslySelectedCellNumber > 90))
+            i = 14 - document.getElementById("t").selectedIndex ^ y; // capture black piece by player
         calculateNextMove(0, 0, 0, 21, u, 1);
         if (y)
             setTimeout("calculateNextMove(0,0,0,21,u,2/*ply*/),calculateNextMove(0,0,0,21,u,1)", 250);
