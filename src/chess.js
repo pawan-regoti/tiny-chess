@@ -90,7 +90,7 @@ window.onload = () => {
     i = 18; i < 100; a += ++i % 10 - 9 ? "<th width=80 height=80 onclick=playerNextMove(" + i + ") id=position" + i + " style='line-height:50px;font-size:50px;border:2px solid #dde' bgcolor=#" + (i * .9 & 1 ? "c0c0f0" : "e6e6fa") + ">" : (i++,
     "<tr>"))
         ;
-    a += "<th colspan=8><select id=t style='font-size:20px'><option>&#9819;<option>";
+    a += "<th colspan=8><select id=promotionSelection style='font-size:20px'><option>&#9819;<option>";
     document.getElementById("board").innerHTML = a + "&#9820;<option>&#9821;<option>&#9822;</select></table>";
 
     drawBoard();
@@ -105,7 +105,7 @@ const playerNextMove = (cellNumber) => {
         validPreviouslySelectedCellNumber = cellNumber;
         i = Board[selectedCellNumber] & z;
         if ((i & 7) == 1 & (validPreviouslySelectedCellNumber < 29 | validPreviouslySelectedCellNumber > 90))
-            i = 14 - document.getElementById("t").selectedIndex ^ y; // capture black piece by player
+            i = 14 - document.getElementById("promotionSelection").selectedIndex ^ y; // capture black piece by player
         computerNextMove(0, 0, 0, 21, u, 1);
         if (y)
             setTimeout("computerNextMove(0,0,0,21,u,2/*ply*/),computerNextMove(0,0,0,21,u,1)", 250);
